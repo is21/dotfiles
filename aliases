@@ -1,8 +1,9 @@
 ###########
 # Aliases #
+###########
 
-# General aliases
-alias b='bundle exec'
+# -----[ General aliases ]------------------------------------------------------
+alias b='bundle exec '
 # Change to the root level directory the current git repository
 alias cdg='cd $(git rev-parse --show-toplevel || pwd)'
 alias flushdns='dscacheutil -flushcache'
@@ -15,12 +16,15 @@ alias marksafe='xattr -rd com.apple.quarantine "$@"'
 alias resetdns='sudo dscacheutil -flushcache; sudo killall -HUP mDNSResponder'
 alias resetopenwith='/System/Library/Frameworks/CoreServices.framework/Versions/A/Frameworks/LaunchServices.framework/Versions/A/Support/lsregister -kill -r -domain local -domain user;killall Finder;echo "Open With has been rebuilt, Finder will relaunch"'
 alias removeallgems='gem list | cut -d" " -f1 | xargs gem uninstall -aIx'
+alias showzshprocs="ps -ef | grep 'zsh -c' | grep -v grep"
+alias killzshprocs="showzshprocs | ruby -ne 'puts $_.split[1]' | xargs kill -9 && showzshprocs"
 alias top='top -s 5 -o cpu -stats pid,user,command,cpu,rsize,vsize,threads,state'
 alias vi='vim'
 
-# Other development aliases
-# -- Git -----------
+# -----[ Other development aliases ]--------------------------------------------
+# ----------[ Git ]-------------------------------------------------------------
 alias ga='git add '
+alias gap='git add -p '
 alias gb='git branch '
 alias gci='git commit'
 alias gco='git checkout '
@@ -31,7 +35,7 @@ alias ghb='hub browse '
 alias gpl='git pull '
 alias gps='git push '
 alias grb='git rebase '
-alias gst='git status '
+alias gst='git status -s -b '
 alias gk='gitk --all&'
 alias gx='gitx --all'
 alias gt='cd $(git rev-parse --show-toplevel)'
@@ -39,4 +43,12 @@ alias gt='cd $(git rev-parse --show-toplevel)'
 alias gau='git ls-files | tr "\n" " " | xargs git update-index --assume-unchanged'
 # Revert the index to its original state
 alias gnau='git ls-files | tr "\n" " " | xargs git update-index --no-assume-unchanged'
+
+# ----------[ Django ]----------------------------------------------------------
+alias dj='./manage.py '
+alias djs='./manage.py runserver '
+alias djsdb='./manage.py syncdb'
+alias djm='./manage.py migrate'
+alias djsh='./manage.py shell'
+alias djdbsh='./manage.py dbshell'
 

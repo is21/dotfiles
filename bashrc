@@ -2,10 +2,15 @@
 # By declaring here in .bashrc, daemons like Pow will also pick it up.
 export LANG=en_US.UTF-8
 
+# Set default paths explicitly, since it doesn't seem to be happening.
+if [ -x /usr/libexec/path_helper ]; then
+  eval `/usr/libexec/path_helper -s`
+fi
+
 ############
 # Homebrew #
 
-export PATH=/usr/local/bin:$PATH
+export PATH=/usr/local/bin:/usr/local/sbin:$PATH
 
 ###########
 # Aliases #
@@ -61,9 +66,9 @@ if [[ "`type -t __git_ps1`" == 'function' ]]; then
   export GIT_PS1_SHOWSTASHSTATE=true     # '$' if smth is stashed
   export GIT_PS1_SHOWUNTRACKEDFILES=true # '%' if un-tracked files
 
-  export PS1='\[\e[0;35m\]\u@\h: \[\e[0m\]\[\e[1;34m\]\w\[\e[0m\]\[\e[0;37m\]$(__git_ps1 " (%s)")\[\e[0m\]\[\e[1m\]$ \[\e[0m\]'
+  export PS1='[\[\e[0;33m\]\A\[\e[0m\]] \[\e[0;35m\]\u@\h: \[\e[0m\]\[\e[1;34m\]\w\[\e[0m\]\[\e[0;37m\]$(__git_ps1 " (%s)")\[\e[0m\]\[\e[1m\]$ \[\e[0m\]'
 else
-  export PS1='\[\e[0;35m\]\u@\h: \[\e[0m\]\[\e[1;34m\]\w$ \[\e[0m\]'
+  export PS1='[\[\e[0;33m\]\A\[\e[0m\]] \[\e[0;35m\]\u@\h: \[\e[0m\]\[\e[1;34m\]\w$ \[\e[0m\]'
 fi
 
 #####################
@@ -75,6 +80,10 @@ if [[ -d ~/.virtualenvs ]]; then
   export VIRTUALENV_USE_DISTRIBUTE=true
   export PIP_DOWNLOAD_CACHE=$HOME/.pip/cache
   [[ -f /usr/local/bin/virtualenvwrapper.sh ]] && . /usr/local/bin/virtualenvwrapper.sh
+fi
+
+if [[ -x /usr/local/opt/autoenv/activate.sh ]]; then
+  source /usr/local/opt/autoenv/activate.sh
 fi
 
 ########################

@@ -38,7 +38,7 @@ set noswapfile
 set undofile
 
 " Reload your vimrc with <leader>vr
-map <leader>vr :source $MYVIMRC<CR>:echoe "Vimrc Reloaded!"<CR>
+map <leader>vr :source $MYVIMRC<CR>:echoe "vimrc reloaded!"<CR>
 
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -51,12 +51,8 @@ nnoremap ; :
 " GUI and colors
 set guifont=EspressoMono-Regular:h14
 set t_Co=256 " use 256 colors
-if (&t_Co == 256 || &t_Co == 88) && !has('gui_running') &&
-  \ filereadable(expand("$HOME/.vim/bundle/guicolorscheme.vim"))
-  autocmd VimEnter * GuiColorScheme Tomorrow-Night
-else
-  colorscheme Tomorrow-Night
-endif
+let g:CSApprox_attr_map = { 'bold' : 'bold', 'italic' : '', 'sp' : '' }
+colorscheme Tomorrow-Night
 
 " Show invisibles like TextMate
 set list
@@ -182,7 +178,7 @@ set wrapmargin=0
 
 " Show a vertical line/guard at column 120
 if exists('+colorcolumn')
-  set colorcolumn=120
+  let &colorcolumn="80,100,".join(range(120,999),",")
 endif
 
 " Strip trailing whitespace
@@ -193,6 +189,16 @@ nnoremap <leader>m :silent !open -a Marked.app '%:p'<cr>
 
 " Adds a global snippet for ^L to insert a hash rocket
 imap <C-L> <Space>=><Space>
+
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Custom syntax highlighing settings
+"
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+au BufWinEnter,BufRead,BufNewFile Guardfile set filetype=ruby
+au BufWinEnter,BufRead,BufNewFile Vendorfile set filetype=ruby
+au BufWinEnter,BufRead,BufNewFile .powenv set filetype=sh
+au BufWinEnter,BufRead,BufNewFile .powrc set filetype=sh
 
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -214,6 +220,8 @@ Bundle "firat/vim-bufexplorer"
 Bundle "tpope/vim-bundler"
 " Coffeescript
 Bundle "kchmck/vim-coffee-script"
+" CSApprox
+Bundle "godlygeek/csapprox"
 " Fuzzy file search
 Bundle "kien/ctrlp.vim"
 " Add your ends
@@ -222,8 +230,6 @@ Bundle "tpope/vim-endwise"
 Bundle "tpope/vim-fugitive"
 " Gist
 Bundle "mattn/gist-vim"
-" GUI colorscheme
-Bundle "vim-scripts/guicolorscheme.vim"
 " Gundo
 Bundle "sjl/gundo.vim"
 " HAML, Sass, SCSS
@@ -276,6 +282,9 @@ let g:bufExplorerSortBy = 'fullpath'   " Sort by full file path name.
 let g:bufExplorerShowRelativePath = 1  " Show relative paths.
 let g:bufExplorerSplitOutPathName = 0  " Don't split the path and file
 
+" Colors
+nnoremap <silent> <leader>cls :colorscheme<space>
+
 " CtrlP
 let g:ctrlp_map = '<leader>p'         " command to invoke the plugin
 let g:ctrlp_working_path_mode = 'rc'  " don't manage working directory
@@ -296,6 +305,7 @@ nnoremap <silent> <leader>u :GundoToggle<CR>
 
 " The NERD tree
 let g:NERDTreeHijackNetrw = 0 " for now, don't use it for directory browsing
+let NERDTreeShowHidden=1
 nnoremap <silent> <leader>d :NERDTreeToggle<CR>
 nnoremap <leader>r :NERDTreeFind<cr>
 

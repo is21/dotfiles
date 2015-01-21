@@ -1,5 +1,8 @@
 # TextMate 2 global settings, courtesy https://github.com/hmans/homedir
 
+# Path
+PATH = $PATH:/usr/texbin:/Users/ravasthi/.rvm/bin
+
 # Basic Settings
 #
 fontName         = "Espresso Mono"
@@ -13,7 +16,7 @@ windowTitle = "$TM_DISPLAYNAME – ${TM_DIRECTORY/^(?:\/Users\/(?:[^\/]+\/)+(?:c
 
 # Extra files to include
 #
-myExtraIncludes = ".tm_properties,.htaccess,.gitignore,.hgignore,.rvmrc,.rbenv-version,.ruby-version,.ruby-gemset,.deployrc,.powenv,.powrc"
+myExtraIncludes = ".tm_properties,.htaccess,.gitignore,.hgignore,.rvmrc,.rbenv-version,.ruby-version,.ruby-gemset,.deployrc,.powenv,.powrc, .rubocop.yml"
 fileBrowserGlob  = "{*,$myExtraIncludes}"
 include = "{$include,$myExtraIncludes}"
 
@@ -37,6 +40,9 @@ TM_GIT = "/usr/local/bin/git"
 #
 TM_JAVA_SOURCE_FOLDER_REGEX = java
 
+# RVM ruby
+TM_RUBY = "/Users/ravasthi/.rvm/bin/rvm-auto-ruby"
+
 # Default editing configuration
 #
 showInvisibles   = true
@@ -48,6 +54,9 @@ tabSize          = 2
 
 # Strip trailing whitespace on save, fix line endings
 TM_STRIP_WHITESPACE_ON_SAVE = true
+
+# Save on blur
+saveOnBlur = true
 
 # File type specific configuration
 #
@@ -88,7 +97,7 @@ tabSize          = 4
 [ "{README,INSTALL,LICENSE,TODO,NOTICE,HISTORY,CHANGES,CHANGELOG}" ]
 fileType         = "text.plain"
 
-[ "Vendorfile"]
+[ "{Vendorfile, Guardfile}"]
 fileType         = "source.ruby"
 
 [ text.html ]

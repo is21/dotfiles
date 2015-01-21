@@ -1,23 +1,14 @@
 export LANG=en_US.UTF-8
 
+# Set default paths explicitly, since it doesn't seem to be happening.
+if [ -x /usr/libexec/path_helper ]; then
+  eval `/usr/libexec/path_helper -s`
+fi
+
 ############
 # Homebrew #
 
-export PATH=/usr/local/bin:$PATH
-
-###########
-# Aliases #
-
-if [[ -f ~/.aliases ]]; then
-  source ~/.aliases
-fi
-
-#############
-# Functions #
-
-if [[ -f ~/.functions ]]; then
-  source ~/.functions
-fi
+export PATH=/usr/local/bin:/usr/local/sbin:$PATH
 
 #####################
 # Python virtualenv #
@@ -28,6 +19,10 @@ if [[ -d ~/.virtualenvs ]]; then
   export VIRTUALENV_USE_DISTRIBUTE=true
   export PIP_DOWNLOAD_CACHE=$HOME/.pip/cache
   [[ -f /usr/local/bin/virtualenvwrapper.sh ]] && . /usr/local/bin/virtualenvwrapper.sh
+fi
+
+if [[ -x /usr/local/opt/autoenv/activate.sh ]]; then
+  source /usr/local/opt/autoenv/activate.sh
 fi
 
 ########################
@@ -102,3 +97,4 @@ fi
 if [[ -d $HOME/.bin ]]; then
   export PATH=$HOME/.bin:$PATH
 fi
+
