@@ -177,3 +177,5 @@ fi
 if [[ -f $HOME/.localrc ]]; then
   source $HOME/.localrc
 fi
+### Added by the Heroku Toolbelt
+export PATH="/usr/local/heroku/bin:$PATH"
